@@ -41,12 +41,11 @@ RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.so /lib64
 RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.so /lib64/
 RUN cp -v /build/lib/sources/clamav/freshclam/.libs/freshclam /srv/magma/bin/
 
-#TODO cleanup
-#RUN rm -vrf /build
-
 COPY magma.config.stub /tmp/
 COPY scripts /scripts
 RUN chmod -v +x /scripts/*.sh
 
-ENTRYPOINT ["/scripts/entrypoint.sh"]
-CMD ["run"]
+#TODO cleanup
+RUN rm -vrf /build
+
+CMD ["/scripts/entrypoint.sh"]
