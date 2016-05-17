@@ -78,10 +78,6 @@ export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 # Check limits.conf for our entry
 grep "*                hard    memlock         1024" /etc/security/limits.conf
 
-echo "Fixing security limits..."
-if [ $? -ne 0 ]; then
-	printf "*                hard    memlock         1024\n*                soft    memlock         2048" >> /etc/security/limits.conf
-fi
 
 echo "Making directory structure"
 cp -r /srv/magma/res $BASE_DIR/
