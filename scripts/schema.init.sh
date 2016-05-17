@@ -8,7 +8,11 @@
 # It may be used at the user's discretion against a sandbox environment.
 
 
-MAGMA_RES_SQL="/srv/magma/res/sql/"
+if [ "$BASE_DIR" = "" ]; then
+    export BASE_DIR=/magma
+fi
+
+MAGMA_RES_SQL="${BASE_DIR}/res/sql/"
 
 case $# in
 	0)
@@ -79,6 +83,8 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;" > $MAGM
 if [ -z "$HOSTNAME" ]; then
 	HOSTNAME=$(hostname)
 fi
+
+echo "HOSTNAME: ${HOSTNAME}"
 
 # Generate Hostname.sql with the system's Hostname
 echo "UPDATE Hosts SET hostname = '$HOSTNAME' WHERE hostnum = 1;" > $MAGMA_RES_SQL/Hostname.sql

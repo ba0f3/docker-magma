@@ -84,19 +84,19 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Making directory structure"
-cp -rv /srv/magma/res $BASE_DIR/
-cp -rv /srv/magma/web $BASE_DIR/
-mkdir -vp "${BASE_DIR}"
-mkdir -vp "${BASE_DIR}/etc/"
-mkdir -vp "${BASE_DIR}/logs/"
-mkdir -vp "${BASE_DIR}/spool/"
-mkdir -vp "${BASE_DIR}/storage/"
-mkdir -vp "${BASE_DIR}/servers/local/"
-mkdir -vp "${BASE_DIR}/res/virus/"
+cp -r /srv/magma/res $BASE_DIR/
+cp -r /srv/magma/web $BASE_DIR/
+mkdir -p "${BASE_DIR}"
+mkdir -p "${BASE_DIR}/etc/"
+mkdir -p "${BASE_DIR}/logs/"
+mkdir -p "${BASE_DIR}/spool/"
+mkdir -p "${BASE_DIR}/storage/tank"
+mkdir -p "${BASE_DIR}/servers/local/"
+mkdir -p "${BASE_DIR}/res/virus/"
 
 echo "Generating self-signed certificated for domain ${DOMAIN}"
 openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
-
+chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
 echo "Building magma.config"
 if [ ! -e /tmp/magma.config.stub ]; then

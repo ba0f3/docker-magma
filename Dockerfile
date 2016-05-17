@@ -46,6 +46,6 @@ COPY scripts /scripts
 RUN chmod -v +x /scripts/*.sh
 
 #TODO cleanup
-RUN rm -vrf /build
+RUN rm -rf /build
 
 CMD ["/scripts/entrypoint.sh"]
