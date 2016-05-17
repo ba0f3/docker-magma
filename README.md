@@ -16,6 +16,8 @@ VOLUME:
 - /magma
 
 ENV:
+- DOMAIN=localhost.localdomain (your email domain)
+- BASE_DIR=/magma (place your settings and data in other place, default is /magma
 - MYSQL_HOST=mysql
 - MYSQL_USER=root
 - MYSQL_PASSWORD=root
