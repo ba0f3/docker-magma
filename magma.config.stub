@@ -51,7 +51,7 @@ magma.iface.database.user = root
 
 
 magma.iface.virus.signatures = ${BASE_DIR}/res/virus/
-magma.library.file = ${BASE_DIR}bin/magmad.so
+magma.library.file = ${BASE_DIR}/bin/magmad.so
 magma.library.unload = false
 magma.output.path = ${BASE_DIR}/logs/
 magma.spool = ${BASE_DIR}/spool/

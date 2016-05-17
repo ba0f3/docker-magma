@@ -3,7 +3,7 @@
 
 readonly PROGNAME=$(basename $0)
 
-export BASE_DIR=/magma
+export BASE_DIR=/srv/magma
 export MYSQL_HOST="localhost"
 # Usage
 usage () {

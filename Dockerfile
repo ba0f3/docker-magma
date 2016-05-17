@@ -24,25 +24,27 @@ RUN /build/dev/scripts/builders/build.lib.sh load
 RUN /build/dev/scripts/builders/build.check.sh
 RUN /build/dev/scripts/builders/build.magma.sh
 
-RUN strip -v magmad magmad.check magmad.so
-RUN mkdir -pv /magma/bin
-RUN cp -v magmad magmad.check magmad.so /magma/bin
-RUN cp -rv res web /magma
+RUN strip -v /build/magmad /build/magmad.check /build/magmad.so
+RUN mkdir -p /srv/magma/bin
+RUN mv -v /build/magmad /build/magmad.so /build/magmad.check /srv/magma/bin/
+RUN mv -v /build/res /srv/magma/
+RUN mv -v /build/web /srv/magma/
 
-RUN cp -v lib/sources/zlib/libz.so.* /lib64/
-RUN cp -v lib/sources/openssl/libssl.so.* /lib64/
-RUN cp -v lib/sources/openssl/libcrypto.so.* /lib64/
-RUN cp -v lib/sources/clamav/libclamav/.libs/libclamav.so.* /lib64/
-RUN cp -v lib/sources/clamav/freshclam/.libs/freshclam /magma/bin/
+RUN yum history -y rollback 3
+RUN yum install -y mysql
 
-RUN yum history rollback 3
-RUN yum install mysql
+RUN cp -v /build/lib/sources/zlib/libz.so.* /lib64/
+RUN cp -v /build/lib/sources/openssl/libssl.so.* /lib64/
+RUN cp -v /build/lib/sources/openssl/libcrypto.so.* /lib64/
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamav.so.* /lib64/
+RUN cp -v /build/lib/sources/clamav/freshclam/.libs/freshclam /srv/magma/bin/
+
 #TODO cleanup
 #RUN rm -vrf /build
 
-COPY scripts /scripts
-RUN chmod +vx /scripts/*.sh
 COPY magma.config.stub /tmp/
+COPY scripts /scripts
+RUN chmod -v +x /scripts/*.sh
 
 ENTRYPOINT ["/scripts/entrypoint.sh"]
 CMD ["run"]
