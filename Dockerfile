@@ -11,8 +11,8 @@ RUN yum install -y epel-release
 RUN yum groupinstall -y 'Development Tools'
 RUN yum install -y check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql
 
-COPY src /build
-#RUN git clone --depth=1 https://github.com/lavabit/magma.git /build
+#COPY src /build
+RUN git clone --depth=1 https://github.com/lavabit/magma.git /build
 RUN cd /build
 RUN /build/dev/scripts/builders/build.lib.sh extract
 RUN /build/dev/scripts/builders/build.lib.sh prep
