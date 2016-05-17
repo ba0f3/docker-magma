@@ -31,12 +31,14 @@ RUN mv -v /build/res /srv/magma/
 RUN mv -v /build/web /srv/magma/
 
 RUN yum history -y rollback 3
-RUN yum install -y mysql
+RUN yum install -y mysql gettext
 
 RUN cp -v /build/lib/sources/zlib/libz.so.* /lib64/
 RUN cp -v /build/lib/sources/openssl/libssl.so.* /lib64/
 RUN cp -v /build/lib/sources/openssl/libcrypto.so.* /lib64/
 RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamav.so.* /lib64/
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.so /lib64/
 RUN cp -v /build/lib/sources/clamav/freshclam/.libs/freshclam /srv/magma/bin/
 
 #TODO cleanup

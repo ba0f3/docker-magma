@@ -2,9 +2,6 @@
 # This script is targeting CentOS release 6.5
 
 readonly PROGNAME=$(basename $0)
-
-export BASE_DIR=/srv/magma
-export MYSQL_HOST="localhost"
 # Usage
 usage () {
 	cat <<- EOF
@@ -61,6 +58,19 @@ if [ -z "$MYSQL_HOST" \
 	exit 1
 fi
 
+
+if [ "$BASE_DIR" = "" ]; then
+    export BASE_DIR=/magma
+fi
+
+if [ "$DOMAIN" = "" ];then
+    export DOMAIN="localhost.localdomain"
+fi
+
+echo "Setting up server for domain ${DOMAIN} on ${BASE_DIR}"
+
+
+echo "Generating secrets..."
 export SALT=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 
@@ -68,40 +78,43 @@ export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 # Check limits.conf for our entry
 grep "*                hard    memlock         1024" /etc/security/limits.conf
 
+echo "Fixing security limits..."
 if [ $? -ne 0 ]; then
 	printf "*                hard    memlock         1024\n*                soft    memlock         2048" >> /etc/security/limits.conf
 fi
 
+echo "Making directory structure"
+cp -rv /srv/magma/res $BASE_DIR/
+cp -rv /srv/magma/web $BASE_DIR/
+mkdir -vp "${BASE_DIR}"
+mkdir -vp "${BASE_DIR}/etc/"
+mkdir -vp "${BASE_DIR}/logs/"
+mkdir -vp "${BASE_DIR}/spool/"
+mkdir -vp "${BASE_DIR}/storage/"
+mkdir -vp "${BASE_DIR}/servers/local/"
+mkdir -vp "${BASE_DIR}/res/virus/"
 
-# Generate expected directories
-if [ ! -d "$BASE_DIR" ]; then
-    	mkdir -p "${BASE_DIR}/etc/"
-	mkdir -p "${BASE_DIR}/logs/"
-	mkdir -p "${BASE_DIR}/spool/"
-	mkdir -p "${BASE_DIR}/storage/"
-	mkdir -p "${BASE_DIR}/servers/local/"
-fi
+echo "Generating self-signed certificated for domain ${DOMAIN}"
+openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
 
-# Build magma.config
+
+echo "Building magma.config"
 if [ ! -e /tmp/magma.config.stub ]; then
 	echo "Can't find magma.config.stub file"
 	exit 1
 fi
-
-if [ "$DOMAIN" = "" ];then
-    export DOMAIN="localhost.localdomain"
-fi
-
-openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
-
-
 # Substitute the placeholders in magma.config.stub with user input
 envsubst < /tmp/magma.config.stub > $BASE_DIR/etc/magma.config
 
-# Reset database to factory defaults
+
+echo "Initializing default database"
+echo "MySQL host: ${MYSQL_HOST}"
+echo "MySQL user: ${MYSQL_USER}"
+echo "MySQL password: ${MYSQL_PASSWORD}"
+echo "MySQL schema: ${MYSQL_SCHEMA}"
 /scripts/schema.init.sh $MYSQL_HOST $MYSQL_USER $MYSQL_PASSWORD $MYSQL_SCHEMA
 
-
+echo "Downloading ClamAV virus definitions"
 mkdir -p $BASE_DIR/res/virus
-printf "Bytecode yes\nSafeBrowsing yes\nCompressLocalDatabase no\nDatabaseMirror database.clamav.net\n" > $BASE_DIR/res/config/freshclam.conf
-$BASE_DIR/bin/freshclam --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/res/config/freshclam.conf
+printf "Bytecode yes\nSafeBrowsing yes\nCompressLocalDatabase no\nDatabaseMirror database.clamav.net\n" > $BASE_DIR/etc/freshclam.conf
+/srv/magma/bin/freshclam --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/etc/freshclam.conf

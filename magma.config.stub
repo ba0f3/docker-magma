@@ -1,4 +1,4 @@
-%#magma.smtp.bypass_addr =
+#magma.smtp.bypass_addr =
 
 magma.admin.contact = contact@${DOMAIN}
 magma.admin.abuse = abuse@${DOMAIN}
@@ -42,16 +42,16 @@ magma.iface.cache.host[1].port = 11211
 magma.http.pages = ${BASE_DIR}/res/pages/
 magma.http.templates = ${BASE_DIR}/res/templates/
 magma.http.fonts = ${BASE_DIR}/res/fonts/
-magma.iface.database.host = mysql
-magma.iface.database.password = ${MYSQL_ENV_MYSQL_ROOT_PASSWORD)
+magma.iface.database.host = ${MYSQL_HOST}
+magma.iface.database.password = ${MYSQL_PASSWORD}
 magma.iface.database.pool.connections = 6
-magma.iface.database.schema = magma
+magma.iface.database.schema = ${MYSQL_SCHEMA}
 #magma.iface.database.socket_path =
-magma.iface.database.user = root
+magma.iface.database.user = ${MYSQL_USER}
 
 
 magma.iface.virus.signatures = ${BASE_DIR}/res/virus/
-magma.library.file = ${BASE_DIR}/bin/magmad.so
+magma.library.file = /srv/magma/bin/magmad.so
 magma.library.unload = false
 magma.output.path = ${BASE_DIR}/logs/
 magma.spool = ${BASE_DIR}/spool/

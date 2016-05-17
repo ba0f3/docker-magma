@@ -8,7 +8,7 @@
 # It may be used at the user's discretion against a sandbox environment.
 
 
-MAGMA_RES_SQL="/magma/res/sql/"
+MAGMA_RES_SQL="/srv/magma/res/sql/"
 
 case $# in
 	0)
