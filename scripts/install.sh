@@ -86,7 +86,7 @@ mkdir -p "${BASE_DIR}"
 mkdir -p "${BASE_DIR}/etc/"
 mkdir -p "${BASE_DIR}/logs/"
 mkdir -p "${BASE_DIR}/spool/"
-mkdir -p "${BASE_DIR}/storage/tank"
+mkdir -p "${BASE_DIR}/storage/tanks/"
 mkdir -p "${BASE_DIR}/servers/local/"
 mkdir -p "${BASE_DIR}/res/virus/"
 
