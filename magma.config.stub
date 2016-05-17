@@ -4,7 +4,7 @@ magma.admin.contact = contact@${DOMAIN}
 magma.admin.abuse = abuse@${DOMAIN}
 
 magma.output.file = true
-magma.system.daemonize = true
+magma.system.daemonize = false
 
 magma.log.content = false
 magma.log.file = false
@@ -27,6 +27,7 @@ magma.dkim.privkey = ${BASE_DIR}/etc/dkim.${DOMAIN}.pem
 
 magma.config.output_config = false
 
+magma.secure.memory.enable = true
 magma.secure.memory.length = 65536
 magma.secure.salt = ${SALT}
 magma.secure.sessions = ${SESSION}

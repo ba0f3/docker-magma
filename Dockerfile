@@ -40,10 +40,9 @@ RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamav.so.* /lib64/
 RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/
 RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.so /lib64/
 RUN cp -v /build/lib/sources/clamav/freshclam/.libs/freshclam /srv/magma/bin/
-
+RUN cp -v /build/lib/sources/dkim/opendkim/opendkim-genkey /srv/magma/bin/
 COPY magma.config.stub /tmp/
 COPY limits.conf /etc/security/limits.conf
-COPY 90-memlock.conf /etc/security/limits.d/
 COPY scripts /scripts
 RUN chmod -v +x /scripts/*.sh
 

@@ -1,11 +1,13 @@
 Warning: this image is wip, it might not works yet
 
+## Notes:
+- You must create database schema manually
+- Container must run with `--privileged` flag in order to create secure mapped memory, else you must set magma.secure.memory.enable to false
 
-* You must create database schema manually
 
-To start a magma instance:
+## To start a magma instance:
 ```shell
-docker run --name my-magma --link mysql:mysql --link memcache:memcache -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_SCHEMA=magma magma
+docker run -d --name my-magma --privileged --link mysql:mysql --link memcache:memcache -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_SCHEMA=magma magma
 ```
 
 LINK:

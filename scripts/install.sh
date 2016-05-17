@@ -94,6 +94,11 @@ echo "Generating self-signed certificated for domain ${DOMAIN}"
 openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
 chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
+perl /srv/magma/bin/opendkim-genkey --verbose --domain=$DOMAIN --selector=magma --directory=$BASE_DIR/etc --bits=4096
+mv -v $BASE_DIR/etc/magma.private $BASE_DIR/etc/dkim.$DOMAIN.pem
+mv -v $BASE_DIR/etc/magma.txt $BASE_DIR/etc/dkim.$DOMAIN.txt
+cat $BASE_DIR/etc/dkim.$DOMAIN.txt
+
 echo "Building magma.config"
 if [ ! -e /tmp/magma.config.stub ]; then
 	echo "Can't find magma.config.stub file"
