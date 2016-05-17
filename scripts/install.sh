@@ -3,7 +3,7 @@
 
 readonly PROGNAME=$(basename $0)
 
-exoirt BASE_DIR=/magma
+export BASE_DIR=/magma
 export MYSQL_HOST="localhost"
 # Usage
 usage () {
@@ -69,30 +69,39 @@ export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 grep "*                hard    memlock         1024" /etc/security/limits.conf
 
 if [ $? -ne 0 ]; then
-	su - -c 'printf "*                hard    memlock         1024\n*                soft    memlock         2048" >> /etc/security/limits.conf'
+	printf "*                hard    memlock         1024\n*                soft    memlock         2048" >> /etc/security/limits.conf
 fi
 
-# Build magma.config
-if [ ! -e $BASE_DIR/res/config/magma.config.stub ]; then
-	echo "Can't find magma.config.stub file"
-	exit 1
-fi
-
-# Substitute the placeholders in magma.config.stub with user input
-envsubst < $BASE_DIR/res/config/magma.config.stub > $BASE_DIR/magma.config
-
-# Reset database to factory defaults
-/scripts/schema.init.sh $MYSQL_HOST $MYSQL_USER $MYSQL_PASSWORD $MYSQL_SCHEMA
-
-if [ $? -ne 0 ]; then
-	echo "Resetting the database failed"
-	exit 1
-fi
 
 # Generate expected directories
 if [ ! -d "$BASE_DIR" ]; then
+    	mkdir -p "${BASE_DIR}/etc/"
 	mkdir -p "${BASE_DIR}/logs/"
 	mkdir -p "${BASE_DIR}/spool/"
 	mkdir -p "${BASE_DIR}/storage/"
 	mkdir -p "${BASE_DIR}/servers/local/"
 fi
+
+# Build magma.config
+if [ ! -e /tmp/magma.config.stub ]; then
+	echo "Can't find magma.config.stub file"
+	exit 1
+fi
+
+if [ "$DOMAIN" = "" ];then
+    export DOMAIN="localhost.localdomain"
+fi
+
+openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
+
+
+# Substitute the placeholders in magma.config.stub with user input
+envsubst < /tmp/magma.config.stub > $BASE_DIR/etc/magma.config
+
+# Reset database to factory defaults
+/scripts/schema.init.sh $MYSQL_HOST $MYSQL_USER $MYSQL_PASSWORD $MYSQL_SCHEMA
+
+
+mkdir -p $BASE_DIR/res/virus
+printf "Bytecode yes\nSafeBrowsing yes\nCompressLocalDatabase no\nDatabaseMirror database.clamav.net\n" > $BASE_DIR/res/config/freshclam.conf
+$BASE_DIR/bin/freshclam --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/res/config/freshclam.conf
