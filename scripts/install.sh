@@ -107,15 +107,10 @@ fi
 # Substitute the placeholders in magma.config.stub with user input
 envsubst < /tmp/magma.config.stub > $BASE_DIR/etc/magma.config
 
-
 echo "Initializing default database"
-echo "MySQL host: ${MYSQL_HOST}"
-echo "MySQL user: ${MYSQL_USER}"
-echo "MySQL password: ${MYSQL_PASSWORD}"
-echo "MySQL schema: ${MYSQL_SCHEMA}"
 /scripts/schema.init.sh $MYSQL_HOST $MYSQL_USER $MYSQL_PASSWORD $MYSQL_SCHEMA
 
 echo "Downloading ClamAV virus definitions"
 mkdir -p $BASE_DIR/res/virus
 printf "Bytecode yes\nSafeBrowsing yes\nCompressLocalDatabase no\nDatabaseMirror database.clamav.net\n" > $BASE_DIR/etc/freshclam.conf
-/srv/magma/bin/freshclam --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/etc/freshclam.conf
+/srv/magma/bin/freshclam --user=root --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/etc/freshclam.conf

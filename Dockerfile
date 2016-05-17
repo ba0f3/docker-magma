@@ -37,8 +37,10 @@ RUN cp -v /build/lib/sources/zlib/libz.so.* /lib64/
 RUN cp -v /build/lib/sources/openssl/libssl.so.* /lib64/
 RUN cp -v /build/lib/sources/openssl/libcrypto.so.* /lib64/
 RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamav.so.* /lib64/
-RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/
-RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.so /lib64/
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/ && ln -s /lib64/libclamunrar_iface.so /usr/local/lib64/libclamunrar_iface.so.6.1.23
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar_iface.a /lib64 && ln -s /lib64/libclamunrar_iface.a /usr/local/lib64/libclamunrar_iface.a
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.so* /lib64/ && ln -s /lib64/libclamunrar.so /usr/local/lib64/libclamunrar.so.6
+RUN cp -v /build/lib/sources/clamav/libclamav/.libs/libclamunrar.a /lib64/ && ln -s /lib64/libclamunrar.so /usr/local/lib64/libclamunrar.a
 RUN cp -v /build/lib/sources/clamav/freshclam/.libs/freshclam /srv/magma/bin/
 RUN cp -v /build/lib/sources/dkim/opendkim/opendkim-genkey /srv/magma/bin/
 COPY magma.config.stub /tmp/
