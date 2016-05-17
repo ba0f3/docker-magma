@@ -83,7 +83,7 @@ magma.servers[2].network.ipv6 = true
 magma.servers[3].name = Lavabit SMTP
 magma.servers[3].domain = ${DOMAIN}
 magma.servers[3].protocol = SMTP
-magma.servers[3].network.port = 7000
+magma.servers[3].network.port = 25
 magma.servers[3].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 
 magma.servers[4].name = Lavabit SMTP
@@ -96,7 +96,7 @@ magma.servers[4].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 magma.servers[5].name = Lavabit SMTPS
 magma.servers[5].domain = ${DOMAIN}
 magma.servers[5].protocol = SMTP
-magma.servers[5].network.port = 7500
+magma.servers[5].network.port = 465
 magma.servers[5].network.type = SSL
 magma.servers[5].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 
@@ -111,7 +111,7 @@ magma.servers[6].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 magma.servers[7].name = Lavabit POP
 magma.servers[7].domain = ${DOMAIN}
 magma.servers[7].protocol = POP
-magma.servers[7].network.port = 8000
+magma.servers[7].network.port = 110
 magma.servers[7].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 
 magma.servers[8].name = Lavabit POP
@@ -124,7 +124,7 @@ magma.servers[8].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 magma.servers[9].name = Lavabit POPS
 magma.servers[9].domain = ${DOMAIN}
 magma.servers[9].protocol = POP
-magma.servers[9].network.port = 8500
+magma.servers[9].network.port = 995
 magma.servers[9].network.type = SSL
 magma.servers[9].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 
@@ -139,7 +139,7 @@ magma.servers[10].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 magma.servers[11].name = Lavabit IMAP
 magma.servers[11].domain = ${DOMAIN}
 magma.servers[11].protocol = IMAP
-magma.servers[11].network.port = 9000
+magma.servers[11].network.port = 143
 magma.servers[11].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 
 magma.servers[12].name = Lavabit IMAP
@@ -152,7 +152,7 @@ magma.servers[12].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 magma.servers[13].name = Lavabit IMAPS
 magma.servers[13].domain = ${DOMAIN}
 magma.servers[13].protocol = IMAP
-magma.servers[13].network.port = 9500
+magma.servers[13].network.port = 993
 magma.servers[13].network.type = SSL
 magma.servers[13].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
 

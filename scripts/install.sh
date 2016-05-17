@@ -92,6 +92,7 @@ mkdir -p "${BASE_DIR}/res/virus/"
 
 echo "Generating self-signed certificated for domain ${DOMAIN}"
 openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
+cat $BASE_DIR/etc/key.pem >> $BASE_DIR/etc/$DOMAIN.pem
 chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
 perl /srv/magma/bin/opendkim-genkey --verbose --domain=$DOMAIN --selector=magma --directory=$BASE_DIR/etc --bits=4096

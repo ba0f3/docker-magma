@@ -1,5 +1,3 @@
-Warning: this image is wip, it might not works yet
-
 ## Notes:
 - You must create database schema manually
 - Container must run with `--privileged` flag in order to create secure mapped memory, else you must set magma.secure.memory.enable to false
@@ -24,4 +22,7 @@ ENV:
 - MYSQL_SCHEMA=magma
 
 EXPOSE:
-- various ports, not configured yet
+- SMTP: 25 465
+- POP3: 110 995
+- IMAP: 143 995
+- HTTP 10000 10500

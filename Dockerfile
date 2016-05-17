@@ -51,4 +51,6 @@ RUN chmod -v +x /scripts/*.sh
 #TODO cleanup
 RUN rm -rf /build
 
+EXPOSE 25 465 110 995 143 995 10000 10500
+
 CMD ["/scripts/entrypoint.sh"]
