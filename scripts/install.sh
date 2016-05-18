@@ -70,25 +70,21 @@ fi
 echo "Setting up server for domain ${DOMAIN} on ${BASE_DIR}"
 
 
-echo "Generating secrets..."
+echo "Generating random secrets..."
 export SALT=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 
-
-# Check limits.conf for our entry
-grep "*                hard    memlock         1024" /etc/security/limits.conf
-
-
-echo "Making directory structure"
-cp -r /srv/magma/res $BASE_DIR/
-cp -r /srv/magma/web $BASE_DIR/
-mkdir -p "${BASE_DIR}"
+echo "Making directory structures.."
 mkdir -p "${BASE_DIR}/etc/"
 mkdir -p "${BASE_DIR}/logs/"
 mkdir -p "${BASE_DIR}/spool/"
 mkdir -p "${BASE_DIR}/storage/tanks/"
 mkdir -p "${BASE_DIR}/servers/local/"
 mkdir -p "${BASE_DIR}/res/virus/"
+
+echo "Coping resources..."
+cp -r /srv/magma/res $BASE_DIR/
+
 
 echo "Generating self-signed certificated for domain ${DOMAIN}"
 openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
@@ -100,13 +96,15 @@ mv -v $BASE_DIR/etc/magma.private $BASE_DIR/etc/dkim.$DOMAIN.pem
 mv -v $BASE_DIR/etc/magma.txt $BASE_DIR/etc/dkim.$DOMAIN.txt
 cat $BASE_DIR/etc/dkim.$DOMAIN.txt
 
+
 echo "Building magma.config"
-if [ ! -e /tmp/magma.config.stub ]; then
+if [ ! -e /scripts/magma.config.stub ]; then
 	echo "Can't find magma.config.stub file"
 	exit 1
 fi
 # Substitute the placeholders in magma.config.stub with user input
-envsubst < /tmp/magma.config.stub > $BASE_DIR/etc/magma.config
+envsubst < /scripts/magma.config.stub > $BASE_DIR/etc/magma.config
+
 
 echo "Initializing default database"
 /scripts/schema.init.sh $MYSQL_HOST $MYSQL_USER $MYSQL_PASSWORD $MYSQL_SCHEMA
@@ -115,3 +113,4 @@ echo "Downloading ClamAV virus definitions"
 mkdir -p $BASE_DIR/res/virus
 printf "Bytecode yes\nSafeBrowsing yes\nCompressLocalDatabase no\nDatabaseMirror database.clamav.net\n" > $BASE_DIR/etc/freshclam.conf
 /srv/magma/bin/freshclam --user=root --datadir=$BASE_DIR/res/virus --config-file=$BASE_DIR/etc/freshclam.conf
+echo "*** INSTALLATION COMPLETED ***"

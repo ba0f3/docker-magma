@@ -1,0 +1,122 @@
+#magma.smtp.bypass_addr =
+
+magma.admin.contact = contact@${DOMAIN}
+magma.admin.abuse = abuse@${DOMAIN}
+
+magma.output.file = true
+magma.system.daemonize = false
+
+magma.log.content = false
+magma.log.file = false
+magma.log.function = false
+magma.log.http = false
+magma.log.imap = false
+magma.log.line = false
+magma.log.stack = false
+magma.log.time = false
+
+magma.system.domain = ${DOMAIN}
+
+magma.web.ssl_redirect = 127.0.0.1:10500
+magma.web.statistics = true
+
+magma.dkim.enabled = true
+magma.dkim.selector = magma
+magma.dkim.domain = ${DOMAIN}
+magma.dkim.privkey = ${BASE_DIR}/etc/dkim.${DOMAIN}.pem
+
+magma.config.output_config = false
+
+magma.secure.memory.enable = true
+magma.secure.memory.length = 65536
+magma.secure.salt = ${SALT}
+magma.secure.sessions = ${SESSION}
+
+magma.http.close = true
+magma.web.portal.indent = false
+magma.iface.virus.available = true
+magma.http.allow_cross_domain = true
+
+magma.iface.cache.host[1].name = memcache
+magma.iface.cache.host[1].port = 11211
+
+magma.http.pages = ${BASE_DIR}/res/pages/
+magma.http.templates = ${BASE_DIR}/res/templates/
+magma.http.fonts = ${BASE_DIR}/res/fonts/
+magma.iface.database.host = ${MYSQL_HOST}
+magma.iface.database.password = ${MYSQL_PASSWORD}
+magma.iface.database.pool.connections = 6
+magma.iface.database.schema = ${MYSQL_SCHEMA}
+#magma.iface.database.socket_path =
+magma.iface.database.user = ${MYSQL_USER}
+
+
+magma.iface.virus.signatures = ${BASE_DIR}/res/virus/
+magma.library.file = /srv/magma/bin/magmad.so
+magma.library.unload = false
+magma.output.path = ${BASE_DIR}/logs/
+magma.spool = ${BASE_DIR}/spool/
+magma.storage.default = local
+magma.storage.root = ${BASE_DIR}/servers/local/
+magma.storage.tank = ${BASE_DIR}/storage/tanks/
+
+magma.system.enable_core_dumps = false
+magma.system.increase_resource_limits = false
+magma.system.worker_threads = 16
+magma.web.portal.safeguard = false
+
+magma.relay.timeout = 60
+magma.relay[1].name = localhost
+magma.relay[1].port = 7000
+
+magma.servers[1].name = Lavabit SMTP
+magma.servers[1].domain = ${DOMAIN}
+magma.servers[1].protocol = SMTP
+magma.servers[1].network.port = 25
+magma.servers[1].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[2].name = Lavabit SMTPS
+magma.servers[2].domain = ${DOMAIN}
+magma.servers[2].protocol = SMTP
+magma.servers[2].network.port = 465
+magma.servers[2].network.type = SSL
+magma.servers[2].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[3].name = Lavabit POP
+magma.servers[3].domain = ${DOMAIN}
+magma.servers[3].protocol = POP
+magma.servers[3].network.port = 110
+magma.servers[3].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[4].name = Lavabit POPS
+magma.servers[4].domain = ${DOMAIN}
+magma.servers[4].protocol = POP
+magma.servers[4].network.port = 995
+magma.servers[4].network.type = SSL
+magma.servers[4].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[5].name = Lavabit IMAP
+magma.servers[5].domain = ${DOMAIN}
+magma.servers[5].protocol = IMAP
+magma.servers[5].network.port = 143
+magma.servers[5].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[6].name = Lavabit IMAPS
+magma.servers[6].domain = ${DOMAIN}
+magma.servers[6].protocol = IMAP
+magma.servers[6].network.port = 993
+magma.servers[6].network.type = SSL
+magma.servers[6].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[7].name = Lavabit HTTP
+magma.servers[7].domain = ${DOMAIN}
+magma.servers[7].protocol = HTTP
+magma.servers[7].network.port = 10000
+magma.servers[7].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
+
+magma.servers[8].name = Lavabit HTTPS
+magma.servers[8].domain = ${DOMAIN}
+magma.servers[8].protocol = HTTP
+magma.servers[8].network.port = 10500
+magma.servers[8].network.type = SSL
+magma.servers[8].ssl.certificate = ${BASE_DIR}/etc/${DOMAIN}.pem
