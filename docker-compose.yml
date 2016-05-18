@@ -1,0 +1,26 @@
+mariadb:
+  image: mariadb
+  environment:
+    - MYSQL_ROOT_PASSWORD=s3cret
+memcached:
+  image: memcached
+magma:
+  #image: rgv151/lavabit-magma:latest
+  build: .
+  ports:
+    - "25:25/tcp"
+    - "465:465/tcp"
+    - "110:110/tcp"
+    - "995:995/tcp"
+    - "143:143/tcp"
+    - "993:993/tcp"
+    - "10000:10000/tcp"
+    - "10500:10500/tcp"
+  links:
+    - mariadb:mysql
+    - memcached:memcache
+  environment:
+    - DOMAIN=huy.im
+    - MYSQL_HOST=mysql
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=s3cret
