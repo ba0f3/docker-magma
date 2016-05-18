@@ -9,7 +9,7 @@ yum groupinstall -y 'Development Tools'
 yum install -y check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql
 
 if [ ! -d "/build" ]; then
-  git clone --depth=1 https://github.com/lavabit/magma.git /build
+  git clone --depth=1 https://github.com/rgv151/magma.git /build
 fi
 
 cd /build
