@@ -7,6 +7,7 @@ memcached:
 magma:
   #image: rgv151/lavabit-magma:latest
   build: .
+  privileged: true
   ports:
     - "25:25/tcp"
     - "465:465/tcp"
