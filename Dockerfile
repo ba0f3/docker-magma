@@ -10,5 +10,5 @@ RUN /scripts/build.sh
 
 EXPOSE 25 465 110 995 143 993 10000 10500
 
-ENTRYPOINT["/scripts/entrypoint.sh"]
+ENTRYPOINT ["/scripts/entrypoint.sh"]
 CMD ["run"]

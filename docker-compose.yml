@@ -16,6 +16,8 @@ magma:
     - "993:993/tcp"
     - "10000:10000/tcp"
     - "10500:10500/tcp"
+  volumes:
+    - /data/magma:/magma
   links:
     - mariadb:mysql
     - memcached:memcache
@@ -24,3 +26,4 @@ magma:
     - MYSQL_HOST=mysql
     - MYSQL_USER=root
     - MYSQL_PASSWORD=s3cret
+    - MYSQL_SCHEMA=magma
