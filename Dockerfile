@@ -3,7 +3,7 @@ MAINTAINER Huy Doan <me@huy.im>
 VOLUME /magma
 ENV TERM dumb
 
-#COPY magma /build
+COPY magma /build
 COPY scripts /scripts
 RUN chmod -v +x /scripts/*.sh
 RUN /scripts/build.sh
