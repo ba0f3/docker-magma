@@ -87,7 +87,7 @@ cp -r /srv/magma/res $BASE_DIR/
 
 
 echo "Generating self-signed certificated for domain ${DOMAIN}"
-openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
+openssl req -x509 -nodes -days 3650 -subj "/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}" -newkey rsa:4096 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
 cat $BASE_DIR/etc/key.pem >> $BASE_DIR/etc/$DOMAIN.pem
 chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
