@@ -1,3 +1,0 @@
-[submodule "upstream"]
-	path = magma
-	url = https://github.com/rgv151/magma.git
