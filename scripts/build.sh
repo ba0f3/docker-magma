@@ -23,27 +23,28 @@ LOCK_FILE=/build/lib.lock
 if [ ! -f "$LOCK_FILE" ]; then
     build.lib.sh extract
     build.lib.sh prep
-    build.lib.sh build
-    build.lib.sh combine
-    build.lib.sh load
-    #build.lib.sh check
-
-    cp -v $LIB_PATH/zlib/libz.so.* /lib64/
-    cp -v $LIB_PATH/openssl/libssl.so.* /lib64/
-    cp -v $LIB_PATH/openssl/libcrypto.so.* /lib64/
-    cp -v $LIB_PATH/clamav/libclamav/.libs/libclamav.so.* /lib64/
-    cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/
-    cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar_iface.a /lib64/
-    cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.so* /lib64/
-    cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.a /lib64/
-    cp -v $LIB_PATH/clamav/freshclam/.libs/freshclam $BASE_DIR/bin/
-    cp -v $LIB_PATH/dkim/opendkim/opendkim-genkey $BASE_DIR/bin/
 
     touch $LOCK_FILE
 fi
+
+build.lib.sh build
+build.lib.sh combine
+build.lib.sh load
+#build.lib.sh check
 
 build.check.sh
 build.magma.sh
 
 strip -v /build/magmad /build/magmad.check /build/magmad.so
 mv -v /build/magmad /build/magmad.so /build/magmad.check $BASE_DIR/bin/
+
+cp -v $LIB_PATH/zlib/libz.so.* /lib64/
+cp -v $LIB_PATH/openssl/libssl.so.* /lib64/
+cp -v $LIB_PATH/openssl/libcrypto.so.* /lib64/
+cp -v $LIB_PATH/clamav/libclamav/.libs/libclamav.so.* /lib64/
+cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar_iface.so /lib64/
+cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar_iface.a /lib64/
+cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.so* /lib64/
+cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.a /lib64/
+cp -v $LIB_PATH/clamav/freshclam/.libs/freshclam $BASE_DIR/bin/
+cp -v $LIB_PATH/dkim/opendkim/opendkim-genkey $BASE_DIR/bin/

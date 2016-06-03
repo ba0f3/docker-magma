@@ -4,7 +4,7 @@ VOLUME /magma
 ENV TERM dumb
 
 RUN yum install -q -y epel-release
-RUN yum install -q -y patch autoconf automake libtool gcc-c+ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql gettext && yum clean all
+RUN yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql gettext && yum clean all
 
 COPY magma /build
 COPY scripts /scripts
