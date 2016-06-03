@@ -22,7 +22,7 @@ fi
 cd /build
 
 LOCK_FILE=/build/lib.lock
-if [ -f "$LOCK_FILE" ]; then
+if [ ! -f "$LOCK_FILE" ]; then
     build.lib.sh extract
     build.lib.sh prep
     build.lib.sh build
