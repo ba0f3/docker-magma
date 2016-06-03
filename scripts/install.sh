@@ -75,12 +75,12 @@ export SALT=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 
 echo "Making directory structures.."
-mkdir -p "${BASE_DIR}/etc/"
-mkdir -p "${BASE_DIR}/logs/"
-mkdir -p "${BASE_DIR}/spool/"
-mkdir -p "${BASE_DIR}/storage/tanks/"
-mkdir -p "${BASE_DIR}/servers/local/"
-mkdir -p "${BASE_DIR}/res/virus/"
+mkdir -p "${BASE_DIR}/etc"
+mkdir -p "${BASE_DIR}/logs"
+mkdir -p "${BASE_DIR}/spool/data"
+mkdir -p "${BASE_DIR}/storage/tanks"
+mkdir -p "${BASE_DIR}/servers/local"
+mkdir -p "${BASE_DIR}/res/virus"
 
 echo "Coping resources..."
 cp -r /srv/magma/res $BASE_DIR/
