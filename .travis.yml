@@ -12,5 +12,5 @@ services:
 before_install:
   - docker build -t magma-slim .
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - docker tag magma-slim rgv151/magma-slim:travis-$TRAVIS_BUILD_NUMBER
-  - docker push magma-slim
+  - docker tag magma-slim $DOCKER_USER/magma-slim:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $DOCKER_USER/magma-slim:travis-$TRAVIS_BUILD_NUMBER
