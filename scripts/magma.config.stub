@@ -57,7 +57,7 @@ magma.library.unload = false
 magma.output.path = ${BASE_DIR}/logs/
 magma.spool = ${BASE_DIR}/spool/
 magma.storage.default = local
-magma.storage.root = ${BASE_DIR}/servers/local/
+magma.storage.root = ${BASE_DIR}/servers
 magma.storage.tank = ${BASE_DIR}/storage/tanks/
 
 magma.system.enable_core_dumps = false
