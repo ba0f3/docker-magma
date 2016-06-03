@@ -5,7 +5,8 @@ export LIB_PATH=/build/lib/sources
 export BASE_DIR=/srv/magma
 
 yum install -q -y epel-release
-yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql gettext && yum clean all
+yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql gettext haveged
+yum clean all
 
 if [ ! -d "/build" ]; then
     git clone --depth=1 https://github.com/rgv151/magma.git /build
