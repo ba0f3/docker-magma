@@ -92,7 +92,7 @@ openssl req -x509 -nodes -days 3650 -subj "/C=CA/ST=QC/L=Montreal/O=Company Name
 cat $BASE_DIR/etc/key.pem >> $BASE_DIR/etc/$DOMAIN.pem
 chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
-perl /srv/magma/bin/opendkim-genkey --verbose --domain=$DOMAIN --selector=magma --directory=$BASE_DIR/etc --bits=4096
+perl /srv/magma/bin/opendkim-genkey --verbose --domain=$DOMAIN --selector=magma --directory=$BASE_DIR/etc --bits=2048
 mv -v $BASE_DIR/etc/magma.private $BASE_DIR/etc/dkim.$DOMAIN.pem
 mv -v $BASE_DIR/etc/magma.txt $BASE_DIR/etc/dkim.$DOMAIN.txt
 cat $BASE_DIR/etc/dkim.$DOMAIN.txt
