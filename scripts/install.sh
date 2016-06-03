@@ -75,19 +75,19 @@ export SALT=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 export SESSION=`echo "$(dd if=/dev/urandom bs=33 count=1 | base64 --wrap=300)"`
 
 echo "Making directory structures.."
-mkdir -p "${BASE_DIR}/etc/"
-mkdir -p "${BASE_DIR}/logs/"
-mkdir -p "${BASE_DIR}/spool/"
-mkdir -p "${BASE_DIR}/storage/tanks/"
-mkdir -p "${BASE_DIR}/servers/local/"
-mkdir -p "${BASE_DIR}/res/virus/"
+mkdir -p "${BASE_DIR}/etc"
+mkdir -p "${BASE_DIR}/logs"
+mkdir -p "${BASE_DIR}/spool/data"
+mkdir -p "${BASE_DIR}/storage/tanks"
+mkdir -p "${BASE_DIR}/servers/local"
+mkdir -p "${BASE_DIR}/res/virus"
 
 echo "Coping resources..."
 cp -r /srv/magma/res $BASE_DIR/
 
 
 echo "Generating self-signed certificated for domain ${DOMAIN}"
-openssl req -x509 -nodes -days 3650 -subj '/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}' -newkey rsa:1024 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
+openssl req -x509 -nodes -days 3650 -subj "/C=CA/ST=QC/L=Montreal/O=Company Name/CN=${DOMAIN}" -newkey rsa:4096 -keyout $BASE_DIR/etc/key.pem -out $BASE_DIR/etc/$DOMAIN.pem
 cat $BASE_DIR/etc/key.pem >> $BASE_DIR/etc/$DOMAIN.pem
 chmod -v o-rwx $BASE_DIR/etc/$DOMAIN.pem
 
