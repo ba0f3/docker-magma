@@ -7,7 +7,8 @@ export BASE_DIR=/srv/magma
 if [ ! -d "/build" ]; then
     git clone --depth=1 https://github.com/rgv151/magma.git /build
 else
-    git -C /build pull
+    cd /build
+    git pull
 fi
 
 mkdir -p $BASE_DIR/bin
