@@ -54,7 +54,7 @@ cp -v $LIB_PATH/clamav/freshclam/.libs/freshclam $BASE_DIR/bin/
 cp -v $LIB_PATH/dkim/opendkim/opendkim-genkey $BASE_DIR/bin/
 
 
-yum history -y rollback 3
+yum history -y rollback 4
 yum install -q -y mysql gettext haveged && yum clean all
 
 rm -rf /build
