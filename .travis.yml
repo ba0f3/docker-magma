@@ -5,6 +5,9 @@ services:
 
 before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t magma-slim .
-  - docker tag magma-slim $DOCKER_USERNAME/magma-slim:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $DOCKER_USERNAME/magma-slim:travis-$TRAVIS_BUILD_NUMBER
+script:
+  - docker build -t magma .
+  - docker tag magma $DOCKER_USERNAME/lavabit-magma:$TRAVIS_BRANCH-latest
+  - docker tag magma $DOCKER_USERNAME/lavabit-magma:$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
+  - docker push $DOCKER_USERNAME/lavabit-magma:$TRAVIS_BRANCH-latest
+  - docker push $DOCKER_USERNAME/lavabit-magma:$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
