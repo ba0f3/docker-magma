@@ -31,7 +31,7 @@ if [ ! -f "$LOCK_FILE" ]; then
     touch $LOCK_FILE
 fi
 
-build.lib.sh build.sh
+build.lib.sh build
 build.lib.sh combine
 build.lib.sh load
 #build.lib.sh check
