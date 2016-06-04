@@ -27,11 +27,11 @@ LOCK_FILE=/build/lib.lock
 if [ ! -f "$LOCK_FILE" ]; then
     build.lib.sh extract
     build.lib.sh prep
-    build.lib.sh build
 
     touch $LOCK_FILE
 fi
 
+build.lib.sh build
 build.lib.sh combine
 build.lib.sh load
 #build.lib.sh check
