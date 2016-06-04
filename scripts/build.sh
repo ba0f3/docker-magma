@@ -5,8 +5,8 @@ export LIB_PATH=/build/lib/sources
 export BASE_DIR=/srv/magma
 
 yum install -q -y epel-release
-yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git mysql gettext haveged
-yum clean all
+yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git
+
 
 if [ ! -d "/build" ]; then
     git clone --depth=1 https://github.com/rgv151/magma.git /build
@@ -31,7 +31,7 @@ if [ ! -f "$LOCK_FILE" ]; then
     touch $LOCK_FILE
 fi
 
-build.lib.sh build
+build.lib.sh build.sh
 build.lib.sh combine
 build.lib.sh load
 #build.lib.sh check
@@ -52,3 +52,9 @@ cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.so* /lib64/
 cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.a /lib64/
 cp -v $LIB_PATH/clamav/freshclam/.libs/freshclam $BASE_DIR/bin/
 cp -v $LIB_PATH/dkim/opendkim/opendkim-genkey $BASE_DIR/bin/
+
+
+yum history -y rollback 3
+yum install -q -y mysql gettext haveged && yum clean all
+
+rm -rf /build
