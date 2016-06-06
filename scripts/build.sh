@@ -10,9 +10,6 @@ yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-de
 
 if [ ! -d "/build" ]; then
     git clone --depth=1 https://github.com/rgv151/magma.git /build
-else
-    cd /build
-    git pull
 fi
 
 mkdir -p $BASE_DIR/bin
@@ -52,7 +49,10 @@ cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.so* /lib64/
 cp -v $LIB_PATH/clamav/libclamav/.libs/libclamunrar.a /lib64/
 cp -v $LIB_PATH/clamav/freshclam/.libs/freshclam $BASE_DIR/bin/
 cp -v $LIB_PATH/dkim/opendkim/opendkim-genkey $BASE_DIR/bin/
+cp -c $LIB_PATH/dkim/opendkim/opendkim-genzone $BASE_DIR/bin/
+cp -c $LIB_PATH/dkim/opendkim/opendkim-testkey $BASE_DIR/bin/
 
+chmod -v +x $BASE_DIR/bin/*
 
 yum history -y rollback 4
 yum install -q -y mysql gettext haveged && yum clean all
