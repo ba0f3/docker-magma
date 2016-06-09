@@ -4,7 +4,7 @@ export PATH="$PATH:/build/dev/scripts/builders:/build/cmake/bin"
 export LIB_PATH=/build/lib/sources
 export BASE_DIR=/srv/magma
 
-apk add --update bash patch autoconf automake libtool gcc check-dev ncurses-dev libbsd libbsd-dev valgrind-dev git
+apk add --update bash patch autoconf automake libtool gcc check-dev ncurses ncurses-dev libbsd libbsd-dev valgrind-dev git
 
 #if [ ! -f "/build/cmake/bin/cmake" ]
 #   curl https://cmake.org/files/v3.6/cmake-3.6.0-rc1-Linux-x86_64.tar.gz > /tmp/cmake.tar.gz
