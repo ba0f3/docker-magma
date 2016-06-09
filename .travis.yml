@@ -1,4 +1,4 @@
-sudo: required
+qqsudo: required
 
 services:
   - docker

@@ -1,11 +1,16 @@
 #!/bin/sh
 
-export PATH="$PATH:/build/dev/scripts/builders"
+export PATH="$PATH:/build/dev/scripts/builders:/build/cmake/bin"
 export LIB_PATH=/build/lib/sources
 export BASE_DIR=/srv/magma
 
 yum install -q -y epel-release
 yum install -q -y patch autoconf automake libtool gcc-c++ check-devel ncurses-devel libbsd libbsd-devel valgrind-devel git
+
+#if [ ! -f "/build/cmake/bin/cmake" ]
+#   curl https://cmake.org/files/v3.6/cmake-3.6.0-rc1-Linux-x86_64.tar.gz > /tmp/cmake.tar.gz
+#   tar xzf /tmp/cmake.gz -C /build
+#fi
 
 
 if [ ! -d "/build" ]; then
