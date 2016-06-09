@@ -1,4 +1,4 @@
-FROM centos:6
+FROM alpine
 MAINTAINER Huy Doan <me@huy.im>
 VOLUME /magma
 ENV TERM dumb
