@@ -1,4 +1,4 @@
 [submodule "magma"]
 	path = magma
-	url = https://github.com/rgv151/magma.git
-	branch = webmail
+	url = https://github.com/lavabit/magma.git
+	branch = develop
